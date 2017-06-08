@@ -14,8 +14,10 @@ class ForumServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/config/forum.php' => config_path('forum.php'),
-        ]);
+            __DIR__ . '/../config/forum.php' => config_path('forum.php'),
+        ], 'config');
+
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->setupRoutes();
     }
@@ -37,6 +39,6 @@ class ForumServiceProvider extends ServiceProvider
      */
     public function setupRoutes()
     {
-        $this->loadRoutesFrom(__DIR__ . '/routes/forum.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/forum.php');
     }
 }

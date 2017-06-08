@@ -1,10 +1,11 @@
 <?php
 
-namespace AndreasElia\Forum;
+namespace AndreasElia\Forum\Models;
 
-use AndreasElia\Forum\Discussion;
+use AndreasElia\Forum\Models\Discussion;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {

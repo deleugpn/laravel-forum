@@ -32,7 +32,11 @@
         "branch-alias": {
             "dev-master": "1.0-dev"
         },
-        "providers": "AndreasElia\\Forum\\ForumServiceProvider"
+        "laravel": {
+            "providers": [
+                "AndreasElia\\Forum\\ForumServiceProvider"
+            ]
+        }
     },
     "config": {
         "sort-packages": true
