@@ -2,7 +2,7 @@
 
 namespace Bitporch\Forum\ViewComposers;
 
-use AndreasElia\Forum\Models\Group;
+use Bitporch\Forum\Models\Group;
 use Illuminate\Contracts\View\View;
 
 class GroupComposer
