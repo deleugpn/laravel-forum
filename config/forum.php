@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     'prefix'        => 'forum',
 
     'namespace'     => '\Bitporch\Forum\Controllers',
@@ -11,6 +11,6 @@ return [
     'middlewares'   => [
         'web' => [
             Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ]
-    ]
+        ],
+    ],
 ];
