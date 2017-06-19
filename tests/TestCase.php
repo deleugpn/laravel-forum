@@ -8,6 +8,7 @@ use Exception;
 use Faker\Factory as Faker;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Exceptions\Handler;
+use Illuminate\Routing\Middleware\SubstituteBindings;
 use Mockery;
 use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
@@ -45,6 +46,7 @@ class TestCase extends BaseTestCase
         $app['config']->set('forum.user', User::class);
         $app['config']->set('forum.prefix', 'forum');
         $app['config']->set('forum.namespace', '\Bitporch\Forum\Controllers');
+        $app['config']->set('forum.middlewares.web', [SubstituteBindings::class]);
     }
 
     protected function setUp()

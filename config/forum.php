@@ -42,7 +42,7 @@ return [
     */
     'middlewares'   => [
         'web' => [
-            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ],
 ];
