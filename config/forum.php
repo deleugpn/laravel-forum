@@ -34,13 +34,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Middlewares
+    | Middleware
     |--------------------------------------------------------------------------
     |
-    | Apply middlewares for the routes registered by the package.
+    | Apply middleware for the routes registered by the package.
     |
     */
-    'middlewares'   => [
+    'middleware'   => [
         'web' => [
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

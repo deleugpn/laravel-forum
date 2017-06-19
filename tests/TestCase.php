@@ -46,7 +46,7 @@ class TestCase extends BaseTestCase
         $app['config']->set('forum.user', User::class);
         $app['config']->set('forum.prefix', 'forum');
         $app['config']->set('forum.namespace', '\Bitporch\Forum\Controllers');
-        $app['config']->set('forum.middlewares.web', [SubstituteBindings::class]);
+        $app['config']->set('forum.middleware.web', [SubstituteBindings::class]);
     }
 
     protected function setUp()
