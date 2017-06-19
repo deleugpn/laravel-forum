@@ -1,11 +1,16 @@
 <?php
 
 return [
+    
+    'prefix'        => 'forum',
 
-    'prefix' => 'forum',
+    'namespace'     => '\Bitporch\Forum\Controllers',
 
-    'namespace' => '\Bitporch\Forum\Controllers',
+    'user'          => App\User::class,
 
-    'user' => App\User::class,
-
+    'middlewares'   => [
+        'web' => [
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+        ]
+    ]
 ];
