@@ -37,9 +37,6 @@ class PostTest extends TestCase
             ]);
     }
 
-    /**
-     * @group f
-     */
     public function testUpdatePost()
     {
         $post = factory(Post::class)->create();
