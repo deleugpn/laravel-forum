@@ -28,7 +28,8 @@ class PostTest extends TestCase
 
     public function testCreatePostValidation()
     {
-        $this->post(route('forum.posts.store'))
+        $this->withExceptionHandler()
+            ->post(route('forum.posts.store'))
             ->assertResponseStatus(302)
             ->assertSessionHasErrors([
                 'content'       => 'The content field is required.',
@@ -36,6 +37,9 @@ class PostTest extends TestCase
             ]);
     }
 
+    /**
+     * @group f
+     */
     public function testUpdatePost()
     {
         $post = factory(Post::class)->create();

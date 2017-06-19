@@ -19,7 +19,7 @@ class GroupTest extends TestCase
 
     public function testFailToDestroyGroup()
     {
-        $this->delete(route('forum.groups.destroy', $this->faker()->word))
+        $this->withExceptionHandler()->delete(route('forum.groups.destroy', $this->faker()->word))
             ->assertResponseStatus(404);
     }
 }

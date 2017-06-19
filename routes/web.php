@@ -1,6 +1,6 @@
 <?php
 
-Route::prefix(config('forum.prefix'))->namespace(config('forum.namespace'))->name('forum.')->group(function () {
+Route::prefix(config('forum.prefix'))->middleware('Illuminate\Routing\Middleware\SubstituteBindings')->namespace(config('forum.namespace'))->name('forum.')->group(function () {
     Route::get('/', 'ForumController@index')->name('home');
     Route::post('search', 'ForumController@search')->name('search');
 

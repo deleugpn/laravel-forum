@@ -33,11 +33,9 @@ class ForumServiceProvider extends ServiceProvider
 
         View::composer('*', 'Bitporch\Forum\ViewComposers\GroupComposer');
 
-        Route::model('discussion', Discussion::class);
         Route::bind('group', function ($slug) {
             return Group::where('slug', $slug)->firstOrFail();
         });
-        Route::model('post', Post::class);
     }
 
     /**
