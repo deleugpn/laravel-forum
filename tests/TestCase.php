@@ -76,7 +76,8 @@ class TestCase extends BaseTestCase
         $app->singleton(ExceptionHandler::class, PassThroughHandler::class);
     }
 
-    protected function withExceptionHandler() {
+    protected function withExceptionHandler()
+    {
         $this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler', 'Orchestra\Testbench\Exceptions\Handler');
 
         return $this;
@@ -85,11 +86,15 @@ class TestCase extends BaseTestCase
 
 class PassThroughHandler extends Handler
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
+
     public function report(Exception $e)
     {
         // no-op
     }
+
     public function render($request, Exception $e)
     {
         throw $e;

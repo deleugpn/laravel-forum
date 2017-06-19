@@ -3,9 +3,7 @@
 namespace Bitporch\Forum;
 
 use Bitporch\Forum\Console\InstallCommand;
-use Bitporch\Forum\Models\Discussion;
 use Bitporch\Forum\Models\Group;
-use Bitporch\Forum\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
