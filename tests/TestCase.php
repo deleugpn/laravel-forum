@@ -76,11 +76,21 @@ class TestCase extends BaseTestCase
         Mockery::close();
     }
 
+    /**
+     * Automatically disables exception handling for tests.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     */
     protected function resolveApplicationExceptionHandler($app)
     {
         $app->singleton(ExceptionHandler::class, PassThroughHandler::class);
     }
 
+    /**
+     * Enables exception handling for tests.
+     *
+     * @return $this
+     */
     protected function withExceptionHandler()
     {
         $this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler', 'Orchestra\Testbench\Exceptions\Handler');
@@ -88,6 +98,20 @@ class TestCase extends BaseTestCase
         return $this;
     }
 
+    protected function signIn(User $user = null)
+    {
+        $user = $user ?: create(User::class);
+
+        return $this->actingAs($user);
+    }
+
+    /**
+     * Apply recursively all the array settings into the application.
+     *
+     * @param Application $app
+     * @param array $settings
+     * @param string $prefix
+     */
     private function applySettings(Application &$app, array $settings, $prefix = 'forum.')
     {
         foreach ($settings as $config => $value) {

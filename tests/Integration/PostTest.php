@@ -4,18 +4,17 @@ namespace Bitporch\Tests\Integration;
 
 use Bitporch\Forum\Models\Discussion;
 use Bitporch\Forum\Models\Post;
-use Bitporch\Tests\Stubs\Models\User;
 use Bitporch\Tests\TestCase;
 
 class PostTest extends TestCase
 {
     public function testCreatePost()
     {
-        $discussion = factory(Discussion::class)->create();
-        $user = factory(User::class)->create();
+
+        $discussion = create(Discussion::class);
         $content = $this->faker()->sentence;
 
-        $this->actingAs($user)
+        $this->signIn()
             ->post(route('forum.posts.store'), [
                 'discussion_id' => $discussion->id,
                 'content'       => $content,
@@ -39,11 +38,10 @@ class PostTest extends TestCase
 
     public function testUpdatePost()
     {
-        $post = factory(Post::class)->create();
-        $user = factory(User::class)->create();
+        $post = create(Post::class);
         $content = $this->faker()->sentence;
 
-        $this->actingAs($user)
+        $this->signIn()
             ->put(route('forum.posts.update', $post->id), [
                 'content'       => $content,
             ])
@@ -56,7 +54,7 @@ class PostTest extends TestCase
 
     public function testDestroyPost()
     {
-        $post = factory(Post::class)->create();
+        $post = create(Post::class);
 
         $this->delete(route('forum.posts.destroy', $post->id))
             ->assertResponseStatus(302)

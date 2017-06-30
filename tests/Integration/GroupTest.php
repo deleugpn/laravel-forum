@@ -9,7 +9,7 @@ class GroupTest extends TestCase
 {
     public function testDestroyGroup()
     {
-         $group = factory(Group::class)->create();
+         $group = create(Group::class);
 
          $this->delete(route('forum.groups.destroy', $group->slug))
              ->assertResponseStatus(204);
@@ -19,9 +19,7 @@ class GroupTest extends TestCase
 
     public function testFailToDestroyGroup()
     {
-        $this->assertTrue(true);
-
-        // $this->withExceptionHandler()->delete(route('forum.groups.destroy', $this->faker()->word))
-        //     ->assertResponseStatus(404);
+         $this->withExceptionHandler()->delete(route('forum.groups.destroy', $this->faker()->word))
+             ->assertResponseStatus(404);
     }
 }
