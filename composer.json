@@ -37,7 +37,10 @@
     "autoload-dev": {
         "psr-4": {
             "Bitporch\\Tests\\": "tests"
-        }
+        },
+        "files": [
+            "tests/helpers/factories.php"
+        ]
     },
     "extra": {
         "branch-alias": {
