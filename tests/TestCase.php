@@ -7,6 +7,7 @@ use Bitporch\Tests\Stubs\Models\User;
 use Exception;
 use Faker\Factory as Faker;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Mockery;
@@ -39,23 +40,24 @@ class TestCase extends BaseTestCase
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
+
+        $settings = require __DIR__ . '/../config/forum.php';
+
+        $this->applySettings($app, $settings);
+
         $app['config']->set('forum.user', User::class);
-        $app['config']->set('forum.web.enabled', true);
-        $app['config']->set('forum.web.prefix', 'forum');
-        $app['config']->set('forum.web.namespace', '\Bitporch\Forum\Controllers');
-        $app['config']->set('forum.web.middleware', [SubstituteBindings::class]);
     }
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/Stubs/migrations/');
-        $this->withFactories(__DIR__.'/../database/factories/');
+        $this->loadMigrationsFrom(__DIR__ . '/Stubs/migrations/');
+        $this->withFactories(__DIR__ . '/../database/factories/');
 
         $this->artisan('migrate', ['--database' => 'testbench']);
     }
@@ -84,6 +86,17 @@ class TestCase extends BaseTestCase
         $this->app->singleton('Illuminate\Contracts\Debug\ExceptionHandler', 'Orchestra\Testbench\Exceptions\Handler');
 
         return $this;
+    }
+
+    private function applySettings(Application &$app, array $settings, $prefix = 'forum.')
+    {
+        foreach ($settings as $config => $value) {
+            if (is_array($value)) {
+                $this->applySettings($app, $value, $prefix . $config . '.');
+            } else {
+                $app['config']->set($prefix . $config, $value);
+            }
+        }
     }
 }
 
