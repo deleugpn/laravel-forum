@@ -9,7 +9,6 @@ use Faker\Factory as Faker;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Exceptions\Handler;
-use Illuminate\Routing\Middleware\SubstituteBindings;
 use Mockery;
 use Orchestra\Database\ConsoleServiceProvider;
 use Orchestra\Testbench\BrowserKit\TestCase as BaseTestCase;
@@ -40,12 +39,12 @@ class TestCase extends BaseTestCase
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
         $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
+            'driver'    => 'sqlite',
+            'database'  => ':memory:',
+            'prefix'    => '',
         ]);
 
-        $settings = require __DIR__ . '/../config/forum.php';
+        $settings = require __DIR__.'/../config/forum.php';
 
         $this->applySettings($app, $settings);
 
@@ -56,8 +55,8 @@ class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__ . '/Stubs/migrations/');
-        $this->withFactories(__DIR__ . '/../database/factories/');
+        $this->loadMigrationsFrom(__DIR__.'/Stubs/migrations/');
+        $this->withFactories(__DIR__.'/../database/factories/');
 
         $this->artisan('migrate', ['--database' => 'testbench']);
     }
@@ -109,16 +108,16 @@ class TestCase extends BaseTestCase
      * Apply recursively all the array settings into the application.
      *
      * @param Application $app
-     * @param array $settings
-     * @param string $prefix
+     * @param array       $settings
+     * @param string      $prefix
      */
     private function applySettings(Application &$app, array $settings, $prefix = 'forum.')
     {
         foreach ($settings as $config => $value) {
             if (is_array($value)) {
-                $this->applySettings($app, $value, $prefix . $config . '.');
+                $this->applySettings($app, $value, $prefix.$config.'.');
             } else {
-                $app['config']->set($prefix . $config, $value);
+                $app['config']->set($prefix.$config, $value);
             }
         }
     }

@@ -10,7 +10,6 @@ class PostTest extends TestCase
 {
     public function testCreatePost()
     {
-
         $discussion = create(Discussion::class);
         $content = $this->faker()->sentence;
 
