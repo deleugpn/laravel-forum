@@ -127,6 +127,7 @@ class PostTest extends TestCase
 
     /**
      * Helper method that signs in and creates a post under the signed in user.
+     *
      * @return Post
      */
     private function signInAndSeedPost()
