@@ -2,6 +2,7 @@
 
 namespace Bitporch\Forum\Controllers\Discussion;
 
+use Bitporch\Forum\Controllers\Controller;
 use Bitporch\Forum\Models\Discussion;
 use Carbon\Carbon;
 
