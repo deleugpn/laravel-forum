@@ -6,7 +6,8 @@ use Bitporch\Forum\Models\Discussion;
 
 trait HasManyDiscussions
 {
-    public function discussions() {
+    public function discussions()
+    {
         return $this->hasMany(Discussion::class, 'user_id');
     }
 }
