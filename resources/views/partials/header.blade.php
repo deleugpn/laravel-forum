@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
@@ -12,11 +12,9 @@
         </div>
 
         <div class="collapse navbar-collapse" id="navbar-collapse">
-            <form action="{{ route('forum.search') }}" method="POST" class="nav navbar-nav navbar-right navbar-form">
-                {{ csrf_field() }}
-
+            <form action="{{ route('forum.search') }}" class="nav navbar-nav navbar-right navbar-form">
                 <div class="form-group">
-                    <input type="text" name="title" id="title" placeholder="{{ trans('forum::input_search') }}" class="form-control">
+                    <input type="text" name="query" id="query" placeholder="{{ trans('forum::forum.input_search') }}" class="form-control">
                 </div>
             </form>
         </div>
@@ -24,5 +22,5 @@
 </nav>
 
 <div class="jumbotron text-center" style="background: {{ isset($group->color) ? $group->color : '#AAC2CB' }}">
-    <h3>{{ isset($group->name) ? $group->name : trans('forum::forum') }}</h3>
+    <h3>{{ isset($group->name) ? $group->name : trans('forum::forum.name') }}</h3>
 </div>

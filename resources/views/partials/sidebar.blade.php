@@ -1,4 +1,4 @@
-<a href="{{ route('forum.discussions.create') }}" class="btn btn-success btn-block">{{ trans('forum::new_discussion') }}</a>
+<a href="{{ route('forum.discussions.create') }}" class="btn btn-success btn-block">{{ trans('forum::forum.new_discussion') }}</a>
 
 <div class="list-group list-group-root well">
     @if (count($groups))

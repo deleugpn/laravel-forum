@@ -28,9 +28,15 @@ class ForumServiceProvider extends ServiceProvider
             ]);
         }
 
+        $this->loadTranslationsFrom(__DIR__.'/../resources/translations', 'forum');
+
         $this->publishes([
             __DIR__.'/../config/forum.php' => config_path('forum.php'),
         ], 'config');
+
+        $this->publishes([
+            __DIR__.'/../resources/lang' => resource_path('lang/vendor/forum'),
+        ], 'forum');
 
         $this->registerRouteBindings();
         $this->registerPackageNamespaces();
@@ -65,7 +71,7 @@ class ForumServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the application migrations, routes, views and translations.
+     * Define the application migrations, routes and views.
      *
      * @return void
      */
@@ -82,7 +88,6 @@ class ForumServiceProvider extends ServiceProvider
         }
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'forum');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/translations', 'forum');
     }
 
     /**

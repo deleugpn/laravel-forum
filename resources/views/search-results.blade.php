@@ -2,14 +2,18 @@
 
 @section('content')
     <div class="panel panel-default">
-        <div class="panel-heading">{{ trans('forum::search_results') }}</div>
+        <div class="panel-heading">{{ trans('forum::forum.search_results') }}</div>
 
-        @if ($discussions)
-            <ul class="list-group">
+        <ul class="list-group">
+            @if (count($discussions))
                 @each('forum::partials.discussion', $discussions, 'discussion')
-            </ul>
-        @else
-            {{ trans('forum::no_search_results') }}
-        @endif
+            @else
+                <li class="list-group-item">
+                    {{ trans('forum::forum.no_search_results') }}
+                </li>
+            @endif
+        </ul>
+
+        @include('forum::partials.paginator', ['resource' => $discussions])
     </div>
 @endsection

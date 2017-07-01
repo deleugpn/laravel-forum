@@ -40,7 +40,7 @@ class DiscussionController extends Controller
         $discussion = Discussion::create($request->only([
             'title',
         ]) + [
-            'slug'    => str_slug($request->title, '-'),
+            'slug' => str_slug($request->title, '-'),
         ]);
 
         $discussion->posts()->create([
@@ -52,7 +52,7 @@ class DiscussionController extends Controller
         $discussion->groups()->attach($request->group_id);
         $request->user()->discussions()->attach($discussion);
 
-        return redirect()->route('forum.discussions.show', $discussion->id);
+        return redirect()->route('forum.discussions.show', $discussion->slug);
     }
 
     /**
@@ -81,7 +81,7 @@ class DiscussionController extends Controller
     {
         $discussion->update($request->all());
 
-        return redirect()->route('forum.discussions.show', $discussion->id);
+        return redirect()->route('forum.discussions.show', $discussion->slug);
     }
 
     /**

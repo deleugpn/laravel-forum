@@ -3,7 +3,7 @@
 return [
 
     // General
-    'forum'                         => 'Forum',
+    'name'                          => 'Forum',
     'sr_nav_label'                  => 'Navigation wechseln',
 
     // Groups

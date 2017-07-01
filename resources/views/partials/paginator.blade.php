@@ -1,5 +1,5 @@
 @if ($resource->hasPages())
     <div class="panel-footer">
-        {{ $resource->links() }}
+        {{ $resource->appends(request()->except('page'))->links() }}
     </div>
 @endif
