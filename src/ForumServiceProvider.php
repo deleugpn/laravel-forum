@@ -126,7 +126,8 @@ class ForumServiceProvider extends ServiceProvider
     {
         $class = $this->app['config']->get('forum.user');
         $instance = $this->app->make($class);
-        if (!$instance instanceof User)
+        if (!$instance instanceof User) {
             throw new RuntimeException("{$class} must implement ".User::class);
+        }
     }
 }

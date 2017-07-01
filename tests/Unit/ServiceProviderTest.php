@@ -23,5 +23,4 @@ class ServiceProviderTest extends TestCase
 
 class UserStub
 {
-
 }
