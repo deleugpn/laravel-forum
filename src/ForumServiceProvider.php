@@ -3,6 +3,7 @@
 namespace Bitporch\Forum;
 
 use Bitporch\Forum\Console\InstallCommand;
+use Bitporch\Forum\Contracts\User;
 use Bitporch\Forum\Models\Discussion;
 use Bitporch\Forum\Models\Group;
 use Bitporch\Forum\Models\Post;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use RuntimeException;
 
 class ForumServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,8 @@ class ForumServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->performChecks();
+
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
@@ -116,5 +120,13 @@ class ForumServiceProvider extends ServiceProvider
                 ?>
             ';
         });
+    }
+
+    private function performChecks()
+    {
+        $class = $this->app['config']->get('forum.user');
+        $instance = $this->app->make($class);
+        if (! $instance instanceof User)
+            throw new RuntimeException("{$class} must implement " . User::class);
     }
 }
