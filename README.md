@@ -34,6 +34,24 @@ Run the following command to publish the migrations and config file.
 php artisan vendor:publish --provider="Bitporch\Forum\ForumServiceProvider"
 ```
 
+## Traits
+
+Next up you'll need to add the `ForumUser` trait to your `User` model.
+
+```php
+<?php
+
+namespace App;
+
+use Bitporch\Forum\Traits\ForumUser;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use ForumUser;
+}
+```
+
 ## Migrations
 Run the following command to migrate Laravel Forum after publishing the assets.
 

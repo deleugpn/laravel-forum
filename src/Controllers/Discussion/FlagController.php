@@ -5,6 +5,7 @@ namespace Bitporch\Forum\Controllers\Discussion;
 use Bitporch\Forum\Controllers\Controller;
 use Bitporch\Forum\Models\Discussion;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class FlagController extends Controller
 {
@@ -19,13 +20,13 @@ class FlagController extends Controller
     public function update(Request $request, Discussion $discussion)
     {
         if ($request->has('is_locked')) {
-            $discussion->update(['locked_at' => $request->is_locked ? Carbon::now() : null]);
+            $discussion->update(['locked_at' => $discussion->locked_at ? null : Carbon::now()]);
         }
 
         if ($request->has('is_stickied')) {
-            $discussion->update(['stickied_at' => $request->is_stickied ? Carbon::now() : null]);
+            $discussion->update(['stickied_at' => $discussion->stickied_at ? null : Carbon::now()]);
         }
 
-        return redirect()->route('forum.discussions.show', $discussion->id);
+        return redirect()->route('forum.discussions.show', $discussion->slug);
     }
 }

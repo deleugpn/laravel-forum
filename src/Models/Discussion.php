@@ -21,6 +21,8 @@ class Discussion extends Model
         'slug',
         'posts_count',
         'participants_count',
+        'locked_at',
+        'stickied_at',
     ];
 
     /**

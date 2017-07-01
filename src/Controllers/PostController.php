@@ -44,7 +44,7 @@ class PostController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
-        return redirect()->route('forum.discussions.show', $post->discussion_id);
+        return redirect()->route('forum.discussions.show', $post->discussion->slug);
     }
 
     /**

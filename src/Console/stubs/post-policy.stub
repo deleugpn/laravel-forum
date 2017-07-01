@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\User;
 use Bitporch\Forum\Models\Post;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
