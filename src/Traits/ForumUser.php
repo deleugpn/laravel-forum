@@ -2,10 +2,18 @@
 
 namespace Bitporch\Forum\Traits;
 
-use Bitporch\Forum\Relationships\HasManyDiscussions;
-use Bitporch\Forum\Relationships\HasManyPosts;
+use Bitporch\Forum\Models\Discussion;
+use Bitporch\Forum\Models\Post;
 
 trait ForumUser
 {
-    use HasManyPosts, HasManyDiscussions;
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
