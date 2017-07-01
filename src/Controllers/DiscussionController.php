@@ -41,6 +41,14 @@ class DiscussionController extends Controller
             ->discussions()
             ->create($request->only('title'));
 
+        $discussion->posts()->create([
+            'discussion_id' => $discussion->id,
+            'user_id'       => $request->user()->id,
+            'content'       => $request->content,
+        ]);
+
+        $discussion->groups()->attach($request->group_id);
+
         return redirect()->route('forum.discussions.show', $discussion->slug);
     }
 
