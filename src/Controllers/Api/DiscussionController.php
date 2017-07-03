@@ -6,6 +6,7 @@ use Bitporch\Forum\Controllers\Controller;
 use Bitporch\Forum\Models\Discussion;
 use Bitporch\Forum\Requests\Discussions\CreateDiscussionRequest;
 use Bitporch\Forum\Requests\Discussions\UpdateDiscussionRequest;
+use Bitporch\Forum\Services\DiscussionService;
 
 class DiscussionController extends Controller
 {
@@ -23,12 +24,15 @@ class DiscussionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateDiscussionRequest $request
+     * @param DiscussionService $discussionService
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDiscussionRequest $request)
+    public function store(CreateDiscussionRequest $request, DiscussionService $discussionService)
     {
-        $discussion = Discussion::create($request->all());
+        $discussion = $discussionService->store(
+            $request->user(), ['title' => $request->get('title')], ['content' => $request->get('content')], $request->get('group_id')
+        );
 
         return response($discussion, 201);
     }

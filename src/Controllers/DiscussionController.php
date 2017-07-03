@@ -5,6 +5,7 @@ namespace Bitporch\Forum\Controllers;
 use Bitporch\Forum\Models\Discussion;
 use Bitporch\Forum\Requests\Discussions\CreateDiscussionRequest;
 use Bitporch\Forum\Requests\Discussions\UpdateDiscussionRequest;
+use Bitporch\Forum\Services\DiscussionService;
 
 class DiscussionController extends Controller
 {
@@ -32,22 +33,15 @@ class DiscussionController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreateDiscussionRequest $request
+     * @param DiscussionService $discussionService
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateDiscussionRequest $request)
+    public function store(CreateDiscussionRequest $request, DiscussionService $discussionService)
     {
-        $discussion = $request->user()
-            ->discussions()
-            ->create($request->only('title'));
-
-        $discussion->posts()->create([
-            'discussion_id' => $discussion->id,
-            'user_id'       => $request->user()->id,
-            'content'       => $request->content,
-        ]);
-
-        $discussion->groups()->attach($request->group_id);
+        $discussion = $discussionService->store(
+            $request->user(), ['title' => $request->get('title')], ['content' => $request->get('content')], $request->get('group_id')
+        );
 
         return redirect()->route('forum.discussions.show', $discussion->slug);
     }
