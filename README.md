@@ -26,6 +26,13 @@ Then go ahead and run our easy to use install command.
 php artisan forum:install
 ```
 
+## Migrations
+Setup your database on your `.env` file and run the migrations for Laravel Forum.
+
+```bash
+php artisan migrate
+```
+
 ## Assets
 
 Run the following command to publish the migrations and config file.
@@ -50,13 +57,6 @@ class User extends Authenticatable
 {
     use ForumUser;
 }
-```
-
-## Migrations
-Run the following command to migrate Laravel Forum after publishing the assets.
-
-```bash
-php artisan migrate
 ```
 
 ## Configuration
