@@ -7,19 +7,44 @@ use Bitporch\Tests\TestCase;
 
 class GroupTest extends TestCase
 {
-    public function testDestroyGroup()
+    /**
+     * @test
+     */
+    public function a_guest_cannot_create_a_group()
     {
-        $group = create(Group::class);
+        $response = $this->withExceptionHandler()->post('/forum/groups', []);
 
-        $this->delete(route('forum.groups.destroy', $group->slug))
-            ->assertResponseStatus(204);
-
-        $this->dontSeeInDatabase('groups', ['id' => $group]);
+        $response->assertResponseStatus(302)
+            ->assertSessionHas('errors', 'You must be logged in to create a group.');
+        // @TODO: Check redirecting to Login Route
     }
 
-    public function testFailToDestroyGroup()
+    /**
+     * @test
+     */
+    public function a_user_can_see_the_group_form()
     {
-        $this->withExceptionHandler()->delete(route('forum.groups.destroy', $this->faker()->word))
-            ->assertResponseStatus(404);
+        $this->signIn();
+
+        $response = $this->get('/forum/groups/create');
+
+        $response->assertResponseStatus(200)
+            ->seeElement('[name="color"]')
+            ->seeElement('[name="name"]');
+    }
+
+    /**
+     * @test
+     */
+    public function a_user_can_create_a_group()
+    {
+        $this->signIn();
+
+        $group = make(Group::class);
+
+        $response = $this->post('/forum/groups', $group->toArray());
+
+        $response->assertResponseStatus(302);
+        $this->seeInDatabase('groups', ['name' => $group->name, 'color' => $group->color]);
     }
 }
